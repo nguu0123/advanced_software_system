@@ -182,6 +182,7 @@ List of LLM to test:
 
 ## Lessons
 
+- What I learn is in [./LLM Knowledge/]
 - Auto instrumentation has too much unnecessary information but manual instrumentation takes times and the code looks bad
 - Bigger model is not always better (phi3 vs llama3.2)
 - Different components of a LLM agent and how they work -> Building an LLM agent is hard!!
@@ -190,3 +191,15 @@ List of LLM to test:
   - LangSmith
   - Langfuse
   - Phoenix
+
+## How to run the code
+
+- Install [Tilt](https://tilt.dev/)
+- Prepare your local k8s cluster (I used minikube with docker driver)
+- Run the following to start the application
+
+```bash
+tilt up
+```
+
+- Jaeger will be exposed through [localhost](http://localhost:11686)
