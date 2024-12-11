@@ -1,0 +1,3 @@
+- https://cameronrwolfe.substack.com/p/a-practitioners-guide-to-retrieval?utm_source=profile&utm_medium=reader2
+- https://cameronrwolfe.substack.com/p/practical-prompt-engineering-part?open=false#%C2%A7the-context-window
+- https://www.promptingguide.ai/

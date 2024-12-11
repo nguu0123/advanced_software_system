@@ -1,0 +1,7 @@
+Both traces are showing a spike in latency, but they are different in terms of the services involved.
+
+In the first trace, the spike in latency is caused by the "inference-service-post" service. This service is responsible for performing the inference on the input data and returning the result. The latency spike is likely due to the time it takes to perform the inference, which can vary depending on the complexity of the model and the size of the input data.
+
+In the second trace, the spike in latency is caused by the "pre-processor" service. This service is responsible for preprocessing the input data before passing it to the "inference-service-post" service. The latency spike is likely due to the time it takes to perform the preprocessing, which can vary depending on the complexity of the preprocessing tasks and the size of the input data.
+
+Therefore, if you want to identify the root cause of the spiked latency in your system, you should focus on optimizing the "pre-processor" service or the "inference-service-post" service, depending on which one is responsible for the majority of the latency in your system.%

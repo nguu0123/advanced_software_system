@@ -1,0 +1,21 @@
+**/*/*.lock
+
+test/
+.venv
+*.DS_Store
+*.pt
+*.pyc
+*.egg-info
+*.whl
+*.gz
+*__pycache__/
+# *.pyc
+.pypirc
+.cache/
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+.env
+*.pem
+.python-version
+chroma

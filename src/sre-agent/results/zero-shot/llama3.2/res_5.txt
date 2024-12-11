@@ -1,0 +1,27 @@
+To compare the two traces and determine which service is the root cause of the spiked latency, we need to analyze the spans in each trace.
+
+**Trace 1:**
+
+The first trace shows a span for `inference-span` with a duration of 1207384 (approximately 3.5 minutes). This suggests that the inference service is taking an unusually long time to complete.
+
+However, there are no other spans in this trace that indicate any issues before or after the `inference-span`. The only other spans are for `preprocess-request` and `successful_response`, which have short durations (1198196 and 1198 seconds, respectively).
+
+**Trace 2:**
+
+The second trace shows a span for `inference-span` with a duration of 422967 (approximately 1.5 minutes). This is significantly shorter than the first trace.
+
+However, this trace also has another span for `preprocess-request` with a duration of 1198196 seconds (approximately 3.5 minutes), which suggests that the preprocessing service is taking an unusually long time to complete.
+
+Additionally, there are spans for `successful_response` and `File saved`, but they have short durations (422967 and 4229 seconds, respectively).
+
+**Comparison:**
+
+Based on these observations, it appears that the root cause of the spiked latency in both traces is related to the preprocessing service (`preprocess-request`). In Trace 1, the `inference-span` has a long duration, suggesting that the inference service is taking an unusually long time to complete. However, there are no other spans that indicate any issues before or after this span.
+
+In Trace 2, the `preprocess-request` span has a very long duration (3.5 minutes), which suggests that the preprocessing service is taking an unusually long time to complete. This could be causing the latency spike in the inference service (`inference-span`) and subsequent services.
+
+**Conclusion:**
+
+Based on this analysis, it appears that the root cause of the spiked latency is related to the preprocessing service (`preprocess-request`). The `inference-span` in both traces has a long duration, but the `preprocess-request` span in Trace 2 has an even longer duration. This suggests that the preprocessing service is taking an unusually long time to complete, which is causing the latency spike in the inference service and subsequent services.
+
+To resolve this issue, you may want to investigate why the preprocessing service is taking so long to complete. Is there a bottleneck or resource constraint? Are there any issues with the data being processed? Identifying and addressing these issues should help reduce the latency spike.%

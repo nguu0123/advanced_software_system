@@ -1,0 +1,42 @@
+To determine the root cause of the spiked latency, we need to compare the durations of each span in both traces. Here are the details:
+
+### Normal Request Trace
+1. **inference-span**
+   - Duration: 341,955 microseconds
+2. **preprocess-request**
+   - Duration: 314,874 microseconds
+3. **inference-service-post**
+   - Duration: 312,303 microseconds
+
+### Spiked Latency Trace
+1. **inference-span**
+   - Duration: 1,207,384 microseconds
+2. **preprocess-request**
+   - Duration: 1,198,196 microseconds
+3. **inference-service-post**
+   - Duration: 422,967 microseconds
+
+### Comparison
+
+1. **inference-span**
+   - Normal: 341,955 microseconds
+   - Spiked: 1,207,384 microseconds
+   - Increase: 865,429 microseconds
+
+2. **preprocess-request**
+   - Normal: 314,874 microseconds
+   - Spiked: 1,198,196 microseconds
+   - Increase: 883,322 microseconds
+
+3. **inference-service-post**
+   - Normal: 312,303 microseconds
+   - Spiked: 422,967 microseconds
+   - Increase: 110,664 microseconds
+
+### Conclusion
+The significant increase in latency is observed in both the `inference-span` and `preprocess-request` spans. However, the `preprocess-request` span shows a slightly higher increase in duration compared to the `inference-span`.
+
+- **preprocess-request**: Increase of 883,322 microseconds
+- **inference-span**: Increase of 865,429 microseconds
+
+Given these observations, the **preprocess-request** service appears to be the primary contributor to the spiked latency.

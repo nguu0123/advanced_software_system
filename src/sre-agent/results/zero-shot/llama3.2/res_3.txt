@@ -1,0 +1,22 @@
+To compare the two traces and identify the root cause of the spiked latency, we need to analyze the spans in each trace.
+
+**Trace 1:**
+
+* `p1` (web-server) has a span with duration 1207384, which is likely the root cause of the spiked latency.
+        + This span has a downstream effect on `p2` (pre-processor), which also has a span with duration 1198196. However, this span does not seem to be the root cause of the latency spike.
+* `p2` (pre-processor) has a span with duration 1198196, but it is not the root cause of the latency spike.
+
+**Trace 2:**
+
+* `p3` (inference-server) has a span with duration 422967, which is significantly shorter than the duration in Trace 1.
+        + This span has a downstream effect on `p2` (pre-processor), which also has a span with duration 1198196. However, this span does not seem to be the root cause of the latency spike.
+
+Based on these observations, it appears that the root cause of the spiked latency is likely in the `p1` (web-server) service. The long-running span in `p1` is causing a downstream effect on `p2` and potentially other services, leading to the latency spike.
+
+To further investigate, you may want to:
+
+* Check the logs of `p1` to see if there are any errors or issues that could be causing the long-running span.
+* Analyze the network latency between `p1` and `p2` to ensure that it is not a bottleneck.
+* Consider optimizing the workflow in `p1` to reduce the duration of the long-running span.
+
+Note: This analysis assumes that the traces are accurate and complete, and that there are no other services or components involved in the latency spike.%

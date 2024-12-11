@@ -1,0 +1,45 @@
+To identify the root cause of the spiked latency, we need to compare the durations of the spans in both traces and see which service has the most significant increase in latency.
+
+### Normal Request Trace
+1. **inference-span (web-server)**
+   - Duration: 341,955 microseconds
+
+2. **preprocess-request (pre-processor)**
+   - Duration: 314,874 microseconds
+
+3. **inference-service-post (inference-server)**
+   - Duration: 312,303 microseconds
+
+### Spiked Latency Request Trace
+1. **inference-span (web-server)**
+   - Duration: 1,207,384 microseconds
+
+2. **preprocess-request (pre-processor)**
+   - Duration: 1,198,196 microseconds
+
+3. **inference-service-post (inference-server)**
+   - Duration: 422,967 microseconds
+
+### Comparison of Durations
+1. **inference-span (web-server)**
+   - Normal: 341,955 microseconds
+   - Spiked: 1,207,384 microseconds
+   - Increase: 865,429 microseconds
+
+2. **preprocess-request (pre-processor)**
+   - Normal: 314,874 microseconds
+   - Spiked: 1,198,196 microseconds
+   - Increase: 883,322 microseconds
+
+3. **inference-service-post (inference-server)**
+   - Normal: 312,303 microseconds
+   - Spiked: 422,967 microseconds
+   - Increase: 110,664 microseconds
+
+### Analysis
+The most significant increases in latency are observed in the `inference-span` (web-server) and `preprocess-request` (pre-processor) spans. Both of these spans show an increase of over 800,000 microseconds, while the `inference-service-post` (inference-server) span shows a much smaller increase of approximately 110,000 microseconds.
+
+Given that both the `inference-span` and `preprocess-request` spans have similar and significant increases in latency, it suggests that the root cause of the spiked latency is likely related to the `pre-processor` service. The `pre-processor` service is taking significantly longer to process the request, which in turn affects the overall latency observed in the `web-server`.
+
+### Conclusion
+The root cause of the spiked latency is most likely the `pre-processor` service, as it shows a substantial increase in processing time compared to the normal request trace.

@@ -1,0 +1,21 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: delay-1
+spec:
+  action: delay
+  mode: one
+  selector:
+    namespaces:
+      - default
+
+    labelSelectors:
+      "app": "pre-processor"
+  delay:
+    latency: "500ms"
+    correlation: "100"
+    jitter: "0ms"
+# spec:
+#   selector:
+#     fieldSelectors:
+#       "metadata.name": "my-pod"

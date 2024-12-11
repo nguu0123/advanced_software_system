@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pre-processor
+  labels:
+    app: pre-processor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pre-processor
+  template:
+    metadata:
+      labels:
+        app: pre-processor
+    spec:
+      containers:
+        - name: pre-processor
+          imagePullPolicy: "Always"
+          image: nguu0123/pre-processor
+          ports:
+            - containerPort: 5001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pre-processor-service
+spec:
+  ports:
+    - port: 5001
+      targetPort: 5001
+      nodePort: 30005
+  selector:
+    app: pre-processor
+  type: NodePort

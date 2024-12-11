@@ -1,0 +1,7 @@
+Both traces show a significant increase in latency, but the root cause can be identified by analyzing the operations and tags associated with each span.
+
+In the first trace, the root cause of the spiked latency appears to be the "preprocess-request" operation, which has a duration of 1198196 microseconds (11.98 seconds). This indicates that this operation is responsible for the majority of the latency in the request.
+
+In the second trace, the root cause of the spiked latency appears to be the "inference-service-post" operation, which has a duration of 422967 microseconds (0.423 seconds). This indicates that this operation is responsible for the majority of the latency in the request.
+
+Therefore, based on these traces, it appears that the "preprocess-request" and "inference-service-post" operations are the root causes of the spiked latency in both requests.%

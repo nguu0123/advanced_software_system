@@ -1,0 +1,6 @@
+Both traces have a similar structure, with each span representing a different service. However, there are some differences that can help identify the root cause of the spiked latency:
+
+1. In the first trace, the "web-server" service is the root cause of the spiked latency. This is because it has the highest duration and is also the parent span for all other spans in the trace.
+2. In the second trace, the "inference-server" service is the root cause of the spiked latency. This is because it has the highest duration and is also the parent span for all other spans in the trace. Additionally, the "pre-processor" service has a much lower duration than the "web-server" service, which suggests that it may be the bottleneck in the system.
+
+Therefore, based on these traces, it appears that the root cause of the spiked latency is the "web-server" service in the first trace and the "inference-server" service in the second trace.%

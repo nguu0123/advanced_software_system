@@ -1,0 +1,15 @@
+To identify the root cause of the spiked latency, we can compare the two traces and look for differences in the duration of spans and any potential bottlenecks in the services involved.
+
+In the normal request trace, the spans have the following durations:
+- inference-service-post: 312303 microseconds
+- inference-span: 341955 microseconds
+- preprocess-request: 314874 microseconds
+
+In the spiked latency request trace, the spans have the following durations:
+- inference-span: 1207384 microseconds
+- preprocess-request: 1198196 microseconds
+- inference-service-post: 422967 microseconds
+
+From the comparison, it is evident that the "inference-span" service is the root cause of the spiked latency, as it has a significantly higher duration in the request with spiked latency compared to the normal request.
+
+Therefore, the "inference-span" service should be investigated further to identify the cause of the latency spike and potential performance improvements.

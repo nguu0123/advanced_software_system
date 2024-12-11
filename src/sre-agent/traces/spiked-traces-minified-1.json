@@ -1,0 +1,206 @@
+{
+  "data": [
+    {
+      "traceID": "cfec015b560bf11711fb04c30c2e72c1",
+      "spans": [
+        {
+          "traceID": "cfec015b560bf11711fb04c30c2e72c1",
+          "spanID": "b46c055a40bda3dc",
+          "operationName": "inference-span",
+          "references": [],
+          "startTime": 1733172697808447,
+          "duration": 1207384,
+          "tags": [
+            { "key": "downstream.status_code", "type": "int64", "value": 200 },
+            {
+              "key": "file.name",
+              "type": "string",
+              "value": "ILSVRC2012_val_00000012_n02125311.JPEG"
+            },
+            { "key": "file.size", "type": "int64", "value": 121365 },
+            { "key": "http.method", "type": "string", "value": "POST" },
+            {
+              "key": "internal.span.format",
+              "type": "string",
+              "value": "otlp"
+            },
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "web-server.trace"
+            },
+            { "key": "response.success", "type": "string", "value": "true" },
+            { "key": "span.kind", "type": "string", "value": "internal" }
+          ],
+          "logs": [
+            {
+              "timestamp": 1733172699015676,
+              "fields": [
+                {
+                  "key": "event",
+                  "type": "string",
+                  "value": "successful_response"
+                },
+                {
+                  "key": "response",
+                  "type": "string",
+                  "value": "{\"data\":{\"result\":[]},\"uid\":\"90979853c70842c0b2d7a50562f50a44\"}"
+                }
+              ]
+            }
+          ],
+          "processID": "p1",
+          "warnings": null
+        },
+        {
+          "traceID": "cfec015b560bf11711fb04c30c2e72c1",
+          "spanID": "add1c5865e982189",
+          "operationName": "preprocess-request",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "cfec015b560bf11711fb04c30c2e72c1",
+              "spanID": "b46c055a40bda3dc"
+            }
+          ],
+          "startTime": 1733172697816916,
+          "duration": 1198196,
+          "tags": [
+            { "key": "downstream.status_code", "type": "int64", "value": 200 },
+            {
+              "key": "file.name",
+              "type": "string",
+              "value": "ILSVRC2012_val_00000012_n02125311.JPEG"
+            },
+            { "key": "file.size", "type": "int64", "value": 121365 },
+            { "key": "http.method", "type": "string", "value": "POST" },
+            {
+              "key": "internal.span.format",
+              "type": "string",
+              "value": "otlp"
+            },
+            {
+              "key": "job.id",
+              "type": "string",
+              "value": "90979853c70842c0b2d7a50562f50a44"
+            },
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "pre-processor.trace"
+            },
+            { "key": "span.kind", "type": "string", "value": "internal" }
+          ],
+          "logs": [
+            {
+              "timestamp": 1733172699014914,
+              "fields": [
+                {
+                  "key": "event",
+                  "type": "string",
+                  "value": "successful_response"
+                },
+                {
+                  "key": "response",
+                  "type": "string",
+                  "value": "{\"result\":[]}"
+                }
+              ]
+            }
+          ],
+          "processID": "p2",
+          "warnings": null
+        },
+        {
+          "traceID": "cfec015b560bf11711fb04c30c2e72c1",
+          "spanID": "a6d293a3971ac955",
+          "operationName": "inference-service-post",
+          "references": [
+            {
+              "refType": "CHILD_OF",
+              "traceID": "cfec015b560bf11711fb04c30c2e72c1",
+              "spanID": "add1c5865e982189"
+            }
+          ],
+          "startTime": 1733172698591295,
+          "duration": 422967,
+          "tags": [
+            {
+              "key": "internal.span.format",
+              "type": "string",
+              "value": "otlp"
+            },
+            {
+              "key": "otel.scope.name",
+              "type": "string",
+              "value": "inference-server.trace"
+            },
+            { "key": "otel.status_code", "type": "string", "value": "OK" },
+            { "key": "span.kind", "type": "string", "value": "internal" }
+          ],
+          "logs": [
+            {
+              "timestamp": 1733172698591418,
+              "fields": [
+                { "key": "event", "type": "string", "value": "File saved" },
+                {
+                  "key": "file_path",
+                  "type": "string",
+                  "value": "/inference/temp/ILSVRC2012_val_00000012_n02125311.JPEG"
+                }
+              ]
+            },
+            {
+              "timestamp": 1733172698591423,
+              "fields": [
+                {
+                  "key": "event",
+                  "type": "string",
+                  "value": "Starting inference"
+                }
+              ]
+            },
+            {
+              "timestamp": 1733172699014075,
+              "fields": [
+                {
+                  "key": "event",
+                  "type": "string",
+                  "value": "Inference completed"
+                },
+                { "key": "result", "type": "string", "value": "[]" }
+              ]
+            },
+            {
+              "timestamp": 1733172699014210,
+              "fields": [
+                {
+                  "key": "event",
+                  "type": "string",
+                  "value": "File cleaned up"
+                },
+                {
+                  "key": "file_path",
+                  "type": "string",
+                  "value": "/inference/temp/ILSVRC2012_val_00000012_n02125311.JPEG"
+                }
+              ]
+            }
+          ],
+          "processID": "p3",
+          "warnings": null
+        }
+      ],
+      "processes": {
+        "p1": { "serviceName": "web-server", "tags": [] },
+        "p2": { "serviceName": "pre-processor", "tags": [] },
+        "p3": { "serviceName": "inference-server", "tags": [] }
+      },
+      "warnings": null
+    }
+  ],
+  "total": 0,
+  "limit": 0,
+  "offset": 0,
+  "errors": null
+}

@@ -1,0 +1,12 @@
+Based on the provided traces, we can compare the duration of each span in both traces and identify where the latency has increased. The first trace shows a total duration of 1204957 milliseconds (ms), while the second trace shows a total duration of 683030 ms.
+
+To determine which service is causing the spiked latency, we can compare the durations for each corresponding span in both traces:
+
+- In the first trace, the "preprocess-request" operation has a duration of 125794 ms (from startTime to endTime).
+- In the second trace, the same operation ("preprocess-request") has a duration of 1198196 ms.
+
+The difference in duration for this span is:
+
+1198196 ms - 125794 ms = 1073402 ms (increase)
+
+This indicates that the "pre-processor" service, which corresponds to process p2, is responsible for the spiked latency. The duration of the "preprocess-request" operation increased significantly from 125794 ms in the first trace to 1198196 ms in the second trace.%

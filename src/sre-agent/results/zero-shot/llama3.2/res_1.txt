@@ -1,0 +1,31 @@
+To compare the two traces and determine which service is the root cause of the spiked latency, we need to analyze the spans in each trace.
+
+**Trace 1:**
+
+* The `inference-span` span has a duration of 1207384 (approximately 3.5 minutes), which is significantly longer than the other spans.
+* The `preprocess-request` span has a duration of 1198196, which is also quite long.
+* The `inference-service-post` span has a duration of 422967, which is relatively short.
+
+**Trace 2:**
+
+* The `inference-span` span has a duration of 1207384 (approximately 3.5 minutes), which is the same as in Trace 1.
+* The `preprocess-request` span has a duration of 1198196, which is also the same as in Trace 1.
+* The `inference-service-post` span has a duration of 422967, which is relatively short.
+
+Comparing the two traces, we can see that both services have long-running spans, but the `preprocess-request` span in both traces is significantly longer than the other spans. This suggests that the preprocessing step may be the root cause of the spiked latency.
+
+However, to confirm this, let's look at the logs for each service:
+
+**Trace 1:**
+
+* The `inference-service-post` log shows a file being saved and an inference starting, but no errors are reported.
+* The `preprocess-request` log shows a successful response with an empty result array.
+
+**Trace 2:**
+
+* The `inference-service-post` log shows a file being saved and an inference starting, but no errors are reported.
+* The `preprocess-request` log shows a successful response with an empty result array.
+
+In both traces, the preprocessing step is successful, but it takes a long time to complete. This suggests that the preprocessing step may be the root cause of the spiked latency.
+
+To further investigate, we could consider adding more logging or monitoring to the services to see if there are any other issues that might be contributing to the latency. Additionally, we could consider optimizing the preprocessing step to make it faster without sacrificing accuracy.%

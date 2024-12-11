@@ -1,0 +1,39 @@
+To compare the two traces and identify the root cause of the spiked latency, we need to analyze the spans in each trace.
+
+**Trace 1:**
+
+* `p1` (Web Server):
+        + `preprocess-request`: duration = 1198196ms
+        + `inference-service-post`: duration = 422967ms
+        + `File saved`, `Starting inference`, and `Inference completed` events are all within the duration of `preprocess-request`
+* `p2` (Pre-Processor):
+        + `preprocess-request`: duration = 1198196ms
+        + `successful_response` event is within the duration of `preprocess-request`
+* `p3` (Inference Server):
+        + `inference-service-post`: duration = 1207384ms
+        + `File saved`, `Starting inference`, and `Inference completed` events are all within the duration of `inference-service-post`
+
+**Trace 2:**
+
+* `p1` (Web Server):
+        + `preprocess-request`: duration = 1207384ms
+        + `successful_response` event is within the duration of `preprocess-request`
+* `p2` (Pre-Processor):
+        + `preprocess-request`: duration = 1207384ms
+        + `successful_response` event is within the duration of `preprocess-request`
+* `p3` (Inference Server):
+        + `inference-service-post`: duration = 422967ms
+        + `File saved`, `Starting inference`, and `Inference completed` events are all within the duration of `inference-service-post`
+
+From the analysis, we can see that:
+
+* In Trace 1, both `preprocess-request` and `inference-service-post` have long durations, but they do not overlap. This suggests that the latency is caused by one of these services.
+* In Trace 2, both `preprocess-request` and `inference-service-post` have short durations, and they overlap with each other. This suggests that the latency is likely caused by the overlap between these two services.
+
+Based on this analysis, it appears that the root cause of the spiked latency is the overlap between the `preprocess-request` and `inference-service-post` spans in both traces. However, without more information about the specific services and their interactions, we cannot determine which service is causing the latency.
+
+To further investigate, you may want to:
+
+* Analyze the logs and metrics of each service to understand what's happening during the long durations.
+* Use tracing tools to visualize the call graph between services and identify any bottlenecks or performance issues.
+* Implement additional logging or monitoring to capture more detailed information about the latency spikes.%

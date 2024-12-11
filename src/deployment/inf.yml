@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference-server
+  labels:
+    app: inference-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inference-server
+  template:
+    metadata:
+      labels:
+        app: inference-server
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: edge-inference
+          image: nguu0123/inference-server
+          ports:
+            - containerPort: 5002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inference-service
+spec:
+  ports:
+    - port: 5002
+      targetPort: 5002
+      nodePort: 30006
+  selector:
+    app: inference-server
+  type: NodePort
