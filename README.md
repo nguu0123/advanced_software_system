@@ -194,6 +194,8 @@ List of LLM to test:
 
 ## How to run the code
 
+### Running application
+
 - Install [Tilt](https://tilt.dev/)
 - Prepare your local k8s cluster (I used minikube with docker driver)
 - Run the following to start the application
@@ -203,3 +205,30 @@ tilt up
 ```
 
 - Jaeger will be exposed through [localhost](http://localhost:11686)
+
+### Testing the trace analysis with agent
+
+- Run [ollama](https://ollama.com/) locally or you can deploy it to some machine with GPU
+- If ollama is not deployed locally, you need to add the `base_url` in `src/oce-agent/simple_agent.py, agent_with_python_repl.py` like following:
+
+```python
+model = ChatOllama(model="llama3.2", temperature=0.2, base_url="xxx.xxx.xxx.xxx:11434").bind_tools(tools)
+```
+
+- If [rye](https://rye.astral.sh/) is installed, simply run
+
+```bash
+cd src/oce-agent
+rye sync
+source .venv/bin/activate
+```
+
+- Run the agent like a python script
+
+```bash
+cd src/oce-agent
+# For vanilla LLM
+python3 simple_agent.py
+# Augmented LLM
+python3 agent_with_python_repl.py
+```
